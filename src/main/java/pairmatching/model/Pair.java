@@ -27,7 +27,7 @@ public class Pair {
         return pairCrews.equals(comparePair.pairCrews);
     }
 
-    public String printCrew() {
+    public String printPair() {
         StringJoiner joiner = new StringJoiner(" : ");
 
         for (Crew crew : pairCrews) {
@@ -36,6 +36,8 @@ public class Pair {
 
         return joiner.toString();
     }
+
+
 
 
 }

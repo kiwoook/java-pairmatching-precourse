@@ -66,7 +66,6 @@ public class MissionPairs {
     }
 
     private List<Pairs> getPairsByCourseAndLevel(Course course, Level level) {
-
         return courseMissionPairs.entrySet()
                 .stream()
                 .filter(entrySet -> isSameCourseAndLevel(entrySet, course, level))
@@ -81,5 +80,14 @@ public class MissionPairs {
         return courseKey.equals(course) && levelKey.equals(level);
     }
 
+    public String findPairs(CourseMission courseMission) {
+        Pairs pairs = courseMissionPairs.get(courseMission);
+
+        if (pairs == null) {
+            throw new IllegalArgumentException("매칭 정보가 있습니다. 다시 매칭하시겠습니까?");
+        }
+
+        return pairs.printPairs();
+    }
 
 }

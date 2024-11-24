@@ -1,7 +1,10 @@
 package pairmatching.model;
 
+import static pairmatching.utils.Constants.ENTER;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Pairs {
 
@@ -83,6 +86,15 @@ public class Pairs {
 
     public boolean isExistPair(Pair pair) {
         return items.contains(pair);
+    }
+
+    public String printPairs() {
+        StringJoiner joiner = new StringJoiner(ENTER);
+        for (Pair pair : items) {
+            joiner.add(pair.printPair());
+        }
+
+        return joiner.toString();
     }
 
 

@@ -70,7 +70,10 @@ public class MatchingController {
             reMatch(confirmation);
         }
 
-        // 해당 페어에 대하여 매칭을 시작한다.
+        missionPairs.shufflePair(0, crews, courseMission);
+        String pairMessage = missionPairs.findPairs(courseMission);
+
+        outputViewer.resultPair(pairMessage);
     }
 
     public void reMatch(Confirmation confirmation) {
@@ -81,7 +84,16 @@ public class MatchingController {
 
     // 조회를 하는 로직
     public void check() {
+        CourseMission courseMission = RecoveryUtils.executeWithRetry(
+                () -> CourseMission.parseInput(inputViewer.chooseMatching()));
 
+        try{
+            String pairMessage = missionPairs.findPairs(courseMission);
+
+            outputViewer.resultPair(pairMessage);
+        }catch (IllegalArgumentException e){
+
+        }
     }
 
     public void reset() {
