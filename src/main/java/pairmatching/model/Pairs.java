@@ -15,52 +15,25 @@ public class Pairs {
     }
 
     public static Pairs create(List<String> shuffleCrews) {
-        if (shuffleCrews.size() % 2 == 1) {
-            return new Pairs(oddPair(shuffleCrews));
-        }
-
-        return new Pairs(evenPair(shuffleCrews));
+        return new Pairs(generatePairs(shuffleCrews));
     }
 
-    public static List<Pair> evenPair(List<String> shuffleCrews) {
-        int maxTry = shuffleCrews.size() / 2;
+    public static List<Pair> generatePairs(List<String> shuffleCrews) {
+        int size = shuffleCrews.size();
         List<Pair> pairs = new ArrayList<>();
 
-        for (int tryCount = 0; tryCount < maxTry; tryCount++) {
-            String crew1 = shuffleCrews.get(tryCount * 2);
-            String crew2 = shuffleCrews.get(tryCount * 2 + 1);
+        for (int i = 0; i < size - 1; i += 2) {
+            if (i + 3 == size) {
+                pairs.add(Pair.create(shuffleCrews.get(i), shuffleCrews.get(i + 1), shuffleCrews.get(i + 2)));
+                continue;
+            }
 
-            Pair pair = Pair.create(crew1, crew2);
-            pairs.add(pair);
+            if (i + 1 < size) {
+                pairs.add(Pair.create(shuffleCrews.get(i), shuffleCrews.get(i + 1)));
+            }
         }
 
         return pairs;
-    }
-
-    public static List<Pair> oddPair(List<String> shuffleCrews) {
-        int maxTry = shuffleCrews.size() / 2;
-        List<Pair> pairs = new ArrayList<>();
-
-        for (int tryCount = 0; tryCount < maxTry - 1; tryCount++) {
-            String crew1 = shuffleCrews.get(tryCount * 2);
-            String crew2 = shuffleCrews.get(tryCount * 2 + 1);
-
-            Pair pair = Pair.create(crew1, crew2);
-            pairs.add(pair);
-        }
-
-        pairs.add(threePair(shuffleCrews));
-        return pairs;
-    }
-
-    public static Pair threePair(List<String> shuffleCrews) {
-        int maxSize = shuffleCrews.size();
-
-        String crew1 = shuffleCrews.get(maxSize - 3);
-        String crew2 = shuffleCrews.get(maxSize - 2);
-        String crew3 = shuffleCrews.get(maxSize - 1);
-
-        return Pair.create(crew1, crew2, crew3);
     }
 
     public boolean checkDuplicatedPairsList(List<Pairs> comparePairsList) {
@@ -94,7 +67,6 @@ public class Pairs {
 
         return joiner.toString();
     }
-
 
 
 }

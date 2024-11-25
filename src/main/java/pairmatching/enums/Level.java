@@ -15,7 +15,6 @@ public enum Level {
         this.name = name;
     }
 
-    // 이거 만들 줄 모름
     public static Level from(String input) {
         return Arrays.stream(values())
                 .filter(level -> level.name.equals(input))
