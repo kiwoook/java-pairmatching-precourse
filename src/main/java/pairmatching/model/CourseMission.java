@@ -25,7 +25,7 @@ public class CourseMission {
         return new CourseMission(course, mission);
     }
 
-    public static String[] splitMissionInput(String input) {
+    private static String[] splitMissionInput(String input) {
         boolean startsWith = input.startsWith(",");
         boolean endWith = input.endsWith(",");
 
@@ -40,7 +40,6 @@ public class CourseMission {
 
         return split;
     }
-
 
     public Course getCourse() {
         return course;

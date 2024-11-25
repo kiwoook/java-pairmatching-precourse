@@ -22,6 +22,7 @@ public class Pairs {
         int size = shuffleCrews.size();
         List<Pair> pairs = new ArrayList<>();
 
+        // GPT 보고 고쳐달라했으여...
         for (int i = 0; i < size - 1; i += 2) {
             if (i + 3 == size) {
                 pairs.add(Pair.create(shuffleCrews.get(i), shuffleCrews.get(i + 1), shuffleCrews.get(i + 2)));
@@ -45,7 +46,7 @@ public class Pairs {
         return false;
     }
 
-    public boolean checkDuplicatedPairs(Pairs comparePairs) {
+    private boolean checkDuplicatedPairs(Pairs comparePairs) {
         for (Pair pair : this.items) {
             if (comparePairs.isExistPair(pair)) {
                 return true;
@@ -55,7 +56,9 @@ public class Pairs {
         return false;
     }
 
-    public boolean isExistPair(Pair pair) {
+    // 해당 메서드가 정상적으로 돌아갈려면 Pair의 동등성이 보장되어야 한다.
+    // pair 의 equals hashcode를 재정의하여야 함.
+    private boolean isExistPair(Pair pair) {
         return items.contains(pair);
     }
 

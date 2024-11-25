@@ -78,6 +78,7 @@ public class MatchingController {
             outputViewer.resultPair(pairMessage);
         } catch (IllegalArgumentException e) {
             outputViewer.printError(e);
+            // 섞는게 실패하면 다시 페어 매칭으로 돌아가서 다시 확인받는다.
             matching();
         }
     }
@@ -105,6 +106,4 @@ public class MatchingController {
         missionPairs.reset();
         outputViewer.reset();
     }
-
-
 }

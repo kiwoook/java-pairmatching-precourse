@@ -1,6 +1,5 @@
 package pairmatching.utils;
 
-import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ class FileHandlerTest {
 
     @Test
     @DisplayName("백엔드 출력 테스트")
-    void test1() throws IOException {
+    void test1() {
         List<Crew> backendCrews = fileHandler.getBackendCrews();
 
         System.out.println(backendCrews);
@@ -20,7 +19,7 @@ class FileHandlerTest {
 
     @Test
     @DisplayName("프론트엔드 출력 테스트")
-    void test2() throws IOException {
+    void test2() {
         List<Crew> frontendCrews = fileHandler.getFrontendCrews();
 
         System.out.println(frontendCrews);
