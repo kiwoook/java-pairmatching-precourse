@@ -1,5 +1,6 @@
 package pairmatching.model;
 
+import java.util.Objects;
 import pairmatching.enums.Course;
 import pairmatching.enums.Level;
 import pairmatching.enums.Mission;
@@ -47,5 +48,30 @@ public class CourseMission {
 
     public Mission getMission() {
         return mission;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseMission{" +
+                "course=" + course +
+                ", mission=" + mission +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CourseMission that = (CourseMission) o;
+        return course == that.course && mission == that.mission;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(course, mission);
     }
 }

@@ -12,8 +12,6 @@ public class Crew {
         this.course = course;
     }
 
-    // TODO 이름에 대한 검증 로직 생성
-
     public static Crew of(String name, Course course) {
         return new Crew(name, course);
     }

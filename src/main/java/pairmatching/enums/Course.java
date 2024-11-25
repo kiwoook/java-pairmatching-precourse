@@ -17,7 +17,6 @@ public enum Course {
                 .filter(course -> course.name.equals(input))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 코스명입니다."));
-
     }
 
     public String getName() {

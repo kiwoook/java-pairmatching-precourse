@@ -13,7 +13,6 @@ public class FileHandler {
     private static final String BACKEND_PATH = "src/main/resources/backend-crew.md";
     private static final String FRONTEND_PATH = "src/main/resources/frontend-crew.md";
 
-    // 백엔드 크루원들을 저장하는 메서드
     public List<Crew> getBackendCrews() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(BACKEND_PATH))) {
             return bufferedReader.lines()
@@ -24,7 +23,6 @@ public class FileHandler {
         }
     }
 
-    // 프론트 엔드 크루원들을 저장하는 메서드
     public List<Crew> getFrontendCrews() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FRONTEND_PATH))) {
             return bufferedReader.lines()

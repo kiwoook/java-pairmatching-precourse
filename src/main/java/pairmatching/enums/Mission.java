@@ -1,8 +1,6 @@
 package pairmatching.enums;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public enum Mission {
 
@@ -23,18 +21,11 @@ public enum Mission {
         this.level = level;
     }
 
-    // 이거 만들줄 모름
     public static Mission of(String inputName, Level inputLevel) {
         return Arrays.stream(values())
                 .filter(mission -> mission.isMatch(inputName, inputLevel))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public static List<Mission> getSameLevelMission(Level level) {
-        return Arrays.stream(values())
-                .filter(mission -> mission.level.equals(level))
-                .collect(Collectors.toList());
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 미션명입니다!"));
     }
 
     private boolean isMatch(String inputName, Level inputLevel) {

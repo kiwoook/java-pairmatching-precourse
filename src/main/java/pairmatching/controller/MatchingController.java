@@ -33,10 +33,9 @@ public class MatchingController {
 
         List<Crew> frontendCrews = fileHandler.getFrontendCrews();
         crews.addCrews(frontendCrews);
+
     }
 
-
-    // 함수형 인터페이스로 할 수 있는 부분 같은데 쩝
     public void run() {
         Option option;
         do {
@@ -58,22 +57,29 @@ public class MatchingController {
         }
     }
 
-    // 매칭을 하는 로직
     public void matching() {
         CourseMission courseMission = RecoveryUtils.executeWithRetry(
                 () -> CourseMission.parseInput(inputViewer.chooseMatching()));
 
-        if (missionPairs.existMissionPairs(courseMission)) {
+        if (missionPairs.existCourseMission(courseMission)) {
             Confirmation confirmation = RecoveryUtils.executeWithRetry(
                     () -> Confirmation.from(inputViewer.alreadyPairs()));
 
             reMatch(confirmation);
         }
 
-        missionPairs.shufflePair(0, crews, courseMission);
-        String pairMessage = missionPairs.findPairs(courseMission);
+        shuffle(missionPairs, courseMission);
+    }
 
-        outputViewer.resultPair(pairMessage);
+    private void shuffle(MissionPairs missionPairs, CourseMission courseMission) {
+        try {
+            missionPairs.shufflePair(0, crews, courseMission);
+            String pairMessage = missionPairs.toMessage(courseMission);
+            outputViewer.resultPair(pairMessage);
+        } catch (IllegalArgumentException e) {
+            outputViewer.printError(e);
+            matching();
+        }
     }
 
     public void reMatch(Confirmation confirmation) {
@@ -82,17 +88,16 @@ public class MatchingController {
         }
     }
 
-    // 조회를 하는 로직
     public void check() {
         CourseMission courseMission = RecoveryUtils.executeWithRetry(
                 () -> CourseMission.parseInput(inputViewer.chooseMatching()));
 
-        try{
-            String pairMessage = missionPairs.findPairs(courseMission);
-
+        try {
+            String pairMessage = missionPairs.toMessage(courseMission);
             outputViewer.resultPair(pairMessage);
-        }catch (IllegalArgumentException e){
-
+        } catch (IllegalArgumentException e) {
+            outputViewer.printError(e);
+            check();
         }
     }
 

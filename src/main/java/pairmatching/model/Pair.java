@@ -2,42 +2,50 @@ package pairmatching.model;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
 public class Pair {
 
-    private final Set<Crew> pairCrews;
+    private final Set<String> pairCrews;
 
-    public Pair(Set<Crew> pairCrews) {
+    public Pair(Set<String> pairCrews) {
         this.pairCrews = pairCrews;
     }
 
-    // 아니 set.of 안되는거 실화냐...
-    public static Pair create(Crew crew1, Crew crew2) {
+    public static Pair create(String crew1, String crew2) {
         return new Pair(new LinkedHashSet<>(Arrays.asList(crew1, crew2)));
     }
 
-    public static Pair create(Crew crew1, Crew crew2, Crew crew3) {
+    public static Pair create(String crew1, String crew2, String crew3) {
         return new Pair(new LinkedHashSet<>(Arrays.asList(crew1, crew2, crew3)));
-    }
-
-    // 페어끼리 비교하는 메서드
-    public boolean isDuplicatedPair(Pair comparePair) {
-        return pairCrews.equals(comparePair.pairCrews);
     }
 
     public String printPair() {
         StringJoiner joiner = new StringJoiner(" : ");
 
-        for (Crew crew : pairCrews) {
-            joiner.add(crew.getName());
+        for (String crew : pairCrews) {
+            joiner.add(crew);
         }
 
         return joiner.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Pair pair = (Pair) o;
+        return Objects.equals(pairCrews, pair.pairCrews);
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(pairCrews);
+    }
 }

@@ -6,12 +6,10 @@ import java.util.stream.Collectors;
 import pairmatching.enums.Course;
 
 public class Crews {
-
-
-    private final List<Crew> crews;
+    private final List<Crew> items;
 
     public Crews() {
-        this.crews = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public static Crews create() {
@@ -19,20 +17,19 @@ public class Crews {
     }
 
     public void addCrews(List<Crew> crews) {
-        this.crews.addAll(crews);
-    }
-
-    public void addCrew(String name, Course course) {
-        crews.add(Crew.of(name, course));
+        this.items.addAll(crews);
     }
 
     public List<Crew> getCourseCrews(Course course) {
-        return crews.stream()
+        return items.stream()
                 .filter(crew -> crew.sameCourse(course))
                 .collect(Collectors.toList());
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Crews{" +
+                "crews=" + items +
+                '}';
+    }
 }
