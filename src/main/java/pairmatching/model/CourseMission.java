@@ -20,4 +20,12 @@ public class CourseMission {
 
         return new CourseMission(course, mission);
     }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public Mission getMission() {
+        return mission;
+    }
 }

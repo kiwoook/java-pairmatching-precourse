@@ -1,8 +1,12 @@
 package pairmatching.controller;
 
 import java.util.List;
+import pairmatching.exception.CustomIllegalArgumentException;
+import pairmatching.model.Confirmation;
+import pairmatching.model.CourseMission;
 import pairmatching.model.Crew;
 import pairmatching.model.Crews;
+import pairmatching.model.Matching;
 import pairmatching.model.Option;
 import pairmatching.utils.FileHandler;
 import pairmatching.utils.RecoveryUtils;
@@ -15,6 +19,7 @@ public class PairMatchingController {
     private final OutputViewer outputViewer;
     private final FileHandler fileHandler;
     private Crews crews;
+    private final Matching matching = Matching.create();
 
     public PairMatchingController(InputViewer inputViewer, OutputViewer outputViewer, FileHandler fileHandler) {
         this.inputViewer = inputViewer;
@@ -27,6 +32,7 @@ public class PairMatchingController {
         Option option;
         do {
             option = RecoveryUtils.executeWithRetry(() -> Option.from(inputViewer.promptOption()));
+            chooseOption(option);
         } while (!option.equals(Option.QUIT));
     }
 
@@ -39,22 +45,56 @@ public class PairMatchingController {
 
     public void chooseOption(Option option) {
         if (option.equals(Option.ONE)) {
-
-            return;
+            inputViewer.printMatchingStatus();
+            pairMatching();
         }
 
         if (option.equals(Option.TWO)) {
-
-            return;
+            find();
         }
 
         if (option.equals(Option.THREE)) {
-
+            clear();
         }
     }
 
-    public void pairMatching(){
+    public void find() {
+        CourseMission courseMission = RecoveryUtils.executeWithRetry(
+                () -> CourseMission.of(inputViewer.promptOption()));
 
+        result(courseMission);
+    }
+
+    public void pairMatching() {
+        CourseMission courseMission = RecoveryUtils.executeWithRetry(
+                () -> CourseMission.of(inputViewer.promptOption()));
+
+        if (matching.hasCourseMission(courseMission) && isNo()) {
+            pairMatching();
+            return;
+        }
+
+        matching.process(0, courseMission, crews);
+        result(courseMission);
+    }
+
+    public void clear() {
+        outputViewer.printClear();
+        matching.clear();
+    }
+
+    private boolean isNo() {
+        return RecoveryUtils.executeWithRetry(() -> Confirmation.of(inputViewer.promptConfirmMatching()))
+                .equals(Confirmation.NO);
+    }
+
+    public void result(CourseMission courseMission) {
+        try {
+            outputViewer.printResult(matching.toResult(courseMission));
+        } catch (CustomIllegalArgumentException e) {
+            outputViewer.printError(e);
+            find();
+        }
     }
 
 }

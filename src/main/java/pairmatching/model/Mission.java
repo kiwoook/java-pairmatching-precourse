@@ -31,4 +31,8 @@ public enum Mission {
     private boolean isMission(String missionName, Level level) {
         return this.name.equals(missionName) && this.level.equals(level);
     }
+
+    public Level getLevel() {
+        return level;
+    }
 }

@@ -1,5 +1,6 @@
 package pairmatching.model;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +26,11 @@ public class Crews {
                 '}';
     }
 
-    public List<String> getBackendNames() {
-        return backends.stream().map(Crew::getName).collect(Collectors.toList());
+    public List<String> getShuffleBackendNames() {
+        return Randoms.shuffle(backends.stream().map(Crew::getName).collect(Collectors.toList()));
     }
 
-    public List<String> getFrontendNames() {
-        return frontends.stream().map(Crew::getName).collect(Collectors.toList());
+    public List<String> getShuffleFrontendNames() {
+        return Randoms.shuffle(frontends.stream().map(Crew::getName).collect(Collectors.toList()));
     }
 }
