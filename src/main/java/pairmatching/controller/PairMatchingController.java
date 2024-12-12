@@ -3,7 +3,9 @@ package pairmatching.controller;
 import java.util.List;
 import pairmatching.model.Crew;
 import pairmatching.model.Crews;
+import pairmatching.model.Option;
 import pairmatching.utils.FileHandler;
+import pairmatching.utils.RecoveryUtils;
 import pairmatching.view.InputViewer;
 import pairmatching.view.OutputViewer;
 
@@ -22,7 +24,10 @@ public class PairMatchingController {
 
     public void execute() {
         init();
-        System.out.println(crews);
+        Option option;
+        do {
+            option = RecoveryUtils.executeWithRetry(() -> Option.from(inputViewer.promptOption()));
+        } while (!option.equals(Option.QUIT));
     }
 
     public void init() {
@@ -31,4 +36,21 @@ public class PairMatchingController {
 
         crews = Crews.of(backendCrews, frontendCrews);
     }
+
+    public void chooseOption(Option option) {
+        if (option.equals(Option.ONE)) {
+
+            return;
+        }
+
+        if (option.equals(Option.TWO)) {
+
+            return;
+        }
+
+        if (option.equals(Option.THREE)) {
+
+        }
+    }
+
 }
