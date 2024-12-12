@@ -14,7 +14,7 @@ public class InputViewer {
         return Console.readLine();
     }
 
-    public String promptPairMatching() {
+    public String promptCourseLevelMission() {
         System.out.println("과정, 레벨, 미션을 선택하세요.");
 
         return Console.readLine();

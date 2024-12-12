@@ -19,5 +19,4 @@ public enum Confirmation {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage()));
     }
-
 }

@@ -4,8 +4,8 @@ import pairmatching.utils.StringUtils;
 
 public class CourseMission {
 
-    private Course course;
-    private Mission mission;
+    private final Course course;
+    private final Mission mission;
 
     public CourseMission(Course course, Mission mission) {
         this.course = course;

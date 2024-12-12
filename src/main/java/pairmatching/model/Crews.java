@@ -18,14 +18,6 @@ public class Crews {
         return new Crews(backends, frontends);
     }
 
-    @Override
-    public String toString() {
-        return "Crews{" +
-                "backends=" + backends +
-                ", frontends=" + frontends +
-                '}';
-    }
-
     public List<String> getShuffleBackendNames() {
         return Randoms.shuffle(backends.stream().map(Crew::getName).collect(Collectors.toList()));
     }

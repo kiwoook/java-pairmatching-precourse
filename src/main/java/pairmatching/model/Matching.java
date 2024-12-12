@@ -24,9 +24,7 @@ public class Matching {
     }
 
     public void process(int tryCount, CourseMission courseMission, Crews crews) {
-        if (tryCount >= 3) {
-            throw new CustomIllegalArgumentException(ErrorMessage.INVALID_MATCHING);
-        }
+        validProcess(tryCount);
 
         Course course = courseMission.getCourse();
 
@@ -41,6 +39,12 @@ public class Matching {
             return;
         }
         match.put(courseMission, pairs);
+    }
+
+    private void validProcess(int tryCount) {
+        if (tryCount >= 3) {
+            throw new CustomIllegalArgumentException(ErrorMessage.INVALID_MATCHING);
+        }
     }
 
 

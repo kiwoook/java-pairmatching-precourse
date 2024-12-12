@@ -12,8 +12,6 @@ public enum Option {
         this.command = command;
     }
 
-
-
     public static Option from(String input) {
         return Arrays.stream(values()).filter(value -> value.command.equals(input)).findFirst()
                 .orElseThrow(() -> new CustomIllegalArgumentException(ErrorMessage.INVALID_INPUT));

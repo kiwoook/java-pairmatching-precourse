@@ -16,6 +16,7 @@ public class Pairs {
     }
 
     public static Pairs create(List<String> names) {
+        validSize(names);
         if (names.size() % 2 == 0) {
             return new Pairs(odd(names));
         }
@@ -23,7 +24,7 @@ public class Pairs {
         return new Pairs(even(names));
     }
 
-    public static void valid(List<String> names) {
+    public static void validSize(List<String> names) {
         if (names.size() < 2) {
             throw new CustomIllegalArgumentException(ErrorMessage.INVALID_MATCHING);
         }
@@ -33,7 +34,7 @@ public class Pairs {
     public static List<Pair> odd(List<String> names) {
         List<Pair> items = new ArrayList<>();
         for (int i = 0; i < names.size() / 2; i++) {
-            items.add(new Pair(names.get(i), names.get(i + 1)));
+            items.add(new Pair(names.get(i * 2), names.get(i * 2 + 1)));
         }
 
         return items;
@@ -42,7 +43,7 @@ public class Pairs {
     public static List<Pair> even(List<String> names) {
         List<Pair> items = new ArrayList<>();
         for (int i = 0; i < names.size() / 2 - 1; i++) {
-            items.add(new Pair(names.get(i), names.get(i + 1)));
+            items.add(new Pair(names.get(i * 2), names.get(i * 2 + 1)));
         }
 
         int lastIdx = names.size() - 3;

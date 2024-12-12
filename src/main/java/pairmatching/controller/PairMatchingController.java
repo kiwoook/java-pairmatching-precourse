@@ -18,8 +18,8 @@ public class PairMatchingController {
     private final InputViewer inputViewer;
     private final OutputViewer outputViewer;
     private final FileHandler fileHandler;
-    private Crews crews;
     private final Matching matching = Matching.create();
+    private Crews crews;
 
     public PairMatchingController(InputViewer inputViewer, OutputViewer outputViewer, FileHandler fileHandler) {
         this.inputViewer = inputViewer;
@@ -60,21 +60,25 @@ public class PairMatchingController {
 
     public void find() {
         CourseMission courseMission = RecoveryUtils.executeWithRetry(
-                () -> CourseMission.of(inputViewer.promptOption()));
+                () -> CourseMission.of(inputViewer.promptCourseLevelMission()));
 
         result(courseMission);
     }
 
     public void pairMatching() {
         CourseMission courseMission = RecoveryUtils.executeWithRetry(
-                () -> CourseMission.of(inputViewer.promptOption()));
+                () -> CourseMission.of(inputViewer.promptCourseLevelMission()));
 
         if (matching.hasCourseMission(courseMission) && isNo()) {
             pairMatching();
             return;
         }
 
-        matching.process(0, courseMission, crews);
+        try {
+            matching.process(0, courseMission, crews);
+        } catch (CustomIllegalArgumentException e) {
+            pairMatching();
+        }
         result(courseMission);
     }
 
