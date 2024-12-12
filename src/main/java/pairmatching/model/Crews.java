@@ -1,11 +1,12 @@
 package pairmatching.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Crews {
 
-    private List<Crew> backends;
-    private List<Crew> frontends;
+    private final List<Crew> backends;
+    private final List<Crew> frontends;
 
     public Crews(List<Crew> backends, List<Crew> frontends) {
         this.backends = backends;
@@ -22,5 +23,13 @@ public class Crews {
                 "backends=" + backends +
                 ", frontends=" + frontends +
                 '}';
+    }
+
+    public List<String> getBackendNames() {
+        return backends.stream().map(Crew::getName).collect(Collectors.toList());
+    }
+
+    public List<String> getFrontendNames() {
+        return frontends.stream().map(Crew::getName).collect(Collectors.toList());
     }
 }
